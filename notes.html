@@ -195,6 +195,41 @@
     .entry-card p {
       font-size: 0.875rem;
       color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .entry-card p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .entry-card .recommend {
+      font-size: 0.875rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
+    }
+
+    .card-actions .btn {
+      margin-top: 0;
+      padding: 0.45rem 1rem;
+      font-size: 0.8rem;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 35%, transparent);
     }
 
     .skills-grid {
@@ -258,7 +293,7 @@
         <li><a href="index.html">首页</a></li>
         <li><a href="notes.html" class="active">课程讲义</a></li>
         <li><a href="projects.html">项目经历</a></li>
-        <li><a href="ml-notes.html">ML 笔记</a></li>
+        <li><a href="internship.html">实习经历</a></li>
       </ul>
     </nav>
   </header>
@@ -267,7 +302,7 @@
     <section class="page-hero">
       <p class="breadcrumb"><a href="index.html">首页</a> / 课程与个人讲义</p>
       <h1>课程与个人讲义</h1>
-      <p class="tagline">课堂笔记、复习提纲与自学整理，覆盖 FinTech 及相关数理、编程课程。</p>
+      <p class="tagline">课堂笔记、复习提纲与自学整理，覆盖数理、经济金融、编程数据及机器学习 / 深度学习相关内容。</p>
     </section>
 
     <section>
@@ -311,6 +346,34 @@
         <span class="skill-tag">实分析</span>
         <span class="skill-tag">中级微观</span>
         <span class="skill-tag">强化学习</span>
+      </div>
+    </section>
+
+    <section id="ml">
+      <h2>机器学习 / 深度学习</h2>
+      <div class="entry-list">
+        <article class="entry-card">
+          <p class="entry-meta">推荐阅读 · 外部资源</p>
+          <h3>
+            <a href="https://aisoft-course.github.io/" target="_blank" rel="noopener">人工智能的软件基础</a>
+          </h3>
+          <p>
+            系统介绍 AI 系统栈中的关键工程能力，涵盖 GPU 编程、多线程并行、算子开发以及大模型训练等主题，适合希望深入理解「模型背后软件层」的同学。
+          </p>
+          <p class="recommend">
+            此为复旦大学徐辉教授的上课讲义，内容扎实、体系清晰，十分推荐。
+          </p>
+          <div class="skills-grid">
+            <span class="skill-tag">GPU 编程</span>
+            <span class="skill-tag">多线程</span>
+            <span class="skill-tag">算子开发</span>
+            <span class="skill-tag">大模型训练</span>
+          </div>
+          <div class="card-actions">
+            <a href="https://aisoft-course.github.io/" class="btn btn-primary" target="_blank" rel="noopener">前往讲义</a>
+            <a href="https://github.com/aisoft-course/aisoft-course.github.io" class="btn btn-outline" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </article>
       </div>
     </section>
 
