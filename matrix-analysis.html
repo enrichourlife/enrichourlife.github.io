@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>矩阵分析 · enrichourlife</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf9f7;
+      --surface: #ffffff;
+      --text: #1a1a1a;
+      --text-muted: #6b6b6b;
+      --accent: #2d5a4a;
+      --accent-light: #e8f0ed;
+      --border: #e8e6e3;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+      --radius: 12px;
+      --sidebar-width: 240px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #121212;
+        --surface: #1e1e1e;
+        --text: #f0f0f0;
+        --text-muted: #a0a0a0;
+        --accent: #7eb89a;
+        --accent-light: #1a2e26;
+        --border: #2a2a2a;
+        --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Noto Sans SC", "DM Sans", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.25rem;
+      list-style: none;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
+    .nav-links a.active { font-weight: 500; }
+
+    main {
+      padding-top: 5rem;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      padding-bottom: 3rem;
+    }
+
+    .page-header {
+      padding: 2rem 0 1.5rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .page-header h1 {
+      font-size: clamp(1.5rem, 4vw, 1.85rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+    }
+
+    .page-header .tagline {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
+    .lecture-layout {
+      display: grid;
+      grid-template-columns: var(--sidebar-width) 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 5.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar-back {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 1rem;
+      transition: color 0.2s;
+    }
+
+    .sidebar-back:hover { color: var(--accent); }
+
+    .sidebar-title {
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .toc-list {
+      list-style: none;
+    }
+
+    .toc-list li + li { margin-top: 0.25rem; }
+
+    .toc-list a {
+      display: block;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .toc-list a:hover {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    .toc-list a.active {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .content-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      min-height: calc(100vh - 12rem);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .content-header h2 {
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+
+    .content-header .meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .pdf-actions a {
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .pdf-actions a:hover { text-decoration: underline; }
+
+    .pdf-viewer {
+      flex: 1;
+      min-height: 0;
+    }
+
+    .pdf-viewer iframe {
+      display: block;
+      width: 100%;
+      height: calc(100vh - 13rem);
+      min-height: 560px;
+      border: none;
+      background: var(--surface);
+    }
+
+    footer {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .lecture-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .pdf-viewer iframe {
+        height: 70vh;
+        min-height: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html" class="logo">enrichourlife</a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="notes.html" class="active">课程讲义</a></li>
+        <li><a href="projects.html">项目经历</a></li>
+        <li><a href="ml-notes.html">ML 笔记</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <p class="breadcrumb">
+        <a href="index.html">首页</a> /
+        <a href="notes.html">课程与个人讲义</a> /
+        矩阵分析
+      </p>
+      <h1>矩阵分析</h1>
+      <p class="tagline">课堂讲义与复习材料 · 左侧选择小节，右侧阅读 PDF</p>
+    </div>
+
+    <div class="lecture-layout">
+      <aside class="sidebar" aria-label="讲义目录">
+        <a href="notes.html" class="sidebar-back">← 返回课程讲义</a>
+        <p class="sidebar-title">目录</p>
+        <ul class="toc-list">
+          <li>
+            <a href="#positive-definite" class="active" data-section="positive-definite">§1.7 正定矩阵</a>
+          </li>
+        </ul>
+      </aside>
+
+      <div class="content-panel" id="positive-definite">
+        <div class="content-header">
+          <div>
+            <h2>正定矩阵</h2>
+            <p class="meta">§1.7 · Symmetric positive definite matrices</p>
+          </div>
+          <div class="pdf-actions">
+            <a href="assets/pdf/section-1-7-symmetric-positive-definite.pdf" target="_blank" rel="noopener">新标签页打开</a>
+            ·
+            <a href="assets/pdf/section-1-7-symmetric-positive-definite.pdf" download>下载 PDF</a>
+          </div>
+        </div>
+        <div class="pdf-viewer">
+          <iframe
+            src="assets/pdf/section-1-7-symmetric-positive-definite.pdf"
+            title="正定矩阵讲义 PDF"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 enrichourlife · 复旦大学 FinTech</p>
+  </footer>
+</body>
+</html>
