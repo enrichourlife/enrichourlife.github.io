@@ -202,7 +202,16 @@
     }
 
     .card-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
       margin-top: 0.75rem;
+    }
+
+    .card-actions .btn {
+      margin-top: 0;
+      padding: 0.45rem 1rem;
+      font-size: 0.8rem;
     }
 
     .btn-primary {
@@ -296,7 +305,7 @@
         <article class="entry-card">
           <p class="entry-meta">课程讲义 · 外部资源</p>
           <h3>
-            <a href="https://github.com/aisoft-course/aisoft-course.github.io" target="_blank" rel="noopener">人工智能的软件基础</a>
+            <a href="https://aisoft-course.github.io/" target="_blank" rel="noopener">人工智能的软件基础</a>
           </h3>
           <p>
             系统介绍 AI 系统栈中的关键工程能力，涵盖 GPU 编程、多线程并行、算子开发以及大模型训练等主题，适合希望深入理解「模型背后软件层」的同学。
@@ -311,7 +320,8 @@
             <span class="skill-tag">大模型训练</span>
           </div>
           <div class="card-actions">
-            <a href="https://github.com/aisoft-course/aisoft-course.github.io" class="btn btn-primary" target="_blank" rel="noopener">前往讲义</a>
+            <a href="https://aisoft-course.github.io/" class="btn btn-primary" target="_blank" rel="noopener">前往讲义</a>
+            <a href="https://github.com/aisoft-course/aisoft-course.github.io" class="btn btn-outline" target="_blank" rel="noopener">GitHub</a>
           </div>
         </article>
       </div>
