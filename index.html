@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>enrichourlife · 个人主页</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf9f7;
+      --surface: #ffffff;
+      --text: #1a1a1a;
+      --text-muted: #6b6b6b;
+      --accent: #2d5a4a;
+      --accent-light: #e8f0ed;
+      --border: #e8e6e3;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+      --radius: 12px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #121212;
+        --surface: #1e1e1e;
+        --text: #f0f0f0;
+        --text-muted: #a0a0a0;
+        --accent: #7eb89a;
+        --accent-light: #1a2e26;
+        --border: #2a2a2a;
+        --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Noto Sans SC", "DM Sans", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Hero */
+    main {
+      padding-top: 5rem;
+    }
+
+    .hero {
+      padding: 4rem 0 5rem;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-light), var(--accent));
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--accent);
+      border: 3px solid var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .hero h1 {
+      font-size: clamp(1.75rem, 5vw, 2.25rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero .tagline {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.25rem;
+      font-size: 0.875rem;
+      font-family: inherit;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 35%, transparent);
+    }
+
+    .btn-outline {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Sections */
+    section {
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    section h2 {
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+
+    .about p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      padding: 0.35rem 0.85rem;
+      font-size: 0.8rem;
+      background: var(--accent-light);
+      color: var(--accent);
+      border-radius: 999px;
+    }
+
+    /* Projects */
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .project-card:hover {
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+      box-shadow: var(--shadow);
+    }
+
+    .project-card h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+    }
+
+    .project-card h3 a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .project-card h3 a:hover {
+      color: var(--accent);
+    }
+
+    .project-card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* Contact */
+    .contact-links {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-links a {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: color 0.2s;
+    }
+
+    .contact-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 0 3rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 480px) {
+      .nav-links {
+        gap: 1rem;
+        font-size: 0.8rem;
+      }
+
+      .hero {
+        padding: 3rem 0 4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="#" class="logo">enrichourlife</a>
+      <ul class="nav-links">
+        <li><a href="#about">关于</a></li>
+        <li><a href="#skills">技能</a></li>
+        <li><a href="#blog">博客</a></li>
+        <li><a href="#contact">联系</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="avatar" aria-hidden="true">eo</div>
+      <h1>你好，我是 <span>enrichourlife</span></h1>
+      <p class="tagline">复旦大学 FinTech 25 级 · 数据分析 · 机器学习 · 深度学习</p>
+      <div class="hero-actions">
+        <a href="#blog" class="btn btn-primary">浏览博客</a>
+        <a href="#contact" class="btn btn-outline">联系我</a>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <h2>关于我</h2>
+      <p>
+        我是复旦大学金融科技（FinTech）专业 25 级在读学生 enrichourlife。
+        对数据分析、机器学习与深度学习有浓厚兴趣，正在系统学习相关理论与动手实践。
+        本站是我的个人博客，用于整理课程笔记与个人讲义（包括不限于矩阵分析，机器学习，中级微观经济学等），方便复习与交流。
+      </p>
+    </section>
+
+    <section id="skills">
+      <h2>技能</h2>
+      <div class="skills-grid">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">数据分析</span>
+        <span class="skill-tag">机器学习</span>
+        <span class="skill-tag">深度学习</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">NumPy / Pandas</span>
+        <span class="skill-tag">Git</span>
+      </div>
+    </section>
+
+    <section id="blog">
+      <h2>博客内容</h2>
+      <div class="project-list">
+        <article class="project-card">
+          <h3><a href="#">课程与个人讲义</a></h3>
+          <p>课堂笔记、复习提纲与自学整理，覆盖 FinTech 及相关数理、编程课程。</p>
+        </article>
+        <article class="project-card">
+          <h3><a href="#">项目经历</a></h3>
+          <p>个人与课程相关项目、实验记录与实现说明，附关键思路与成果。</p>
+        </article>
+        <article class="project-card">
+          <h3><a href="#">机器学习 / 深度学习笔记</a></h3>
+          <p>算法原理、实验记录与阅读笔记，持续更新中。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>联系方式</h2>
+      <div class="contact-links">
+        <a href="mailto:ftcy060524@gmail.com">✉ ftcy060524@gmail.com</a>
+        <a href="https://github.com/enrichourlife" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.kaggle.com/enrichourlife" target="_blank" rel="noopener">Kaggle</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <p>© 2026 enrichourlife · 复旦大学 FinTech</p>
+  </footer>
+</body>
+</html>
